@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Todos from './components/ToDos';
+import AddToDo from './components/AddToDo';
+import uuid from 'uuid';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    todos: [
+      {
+        id: uuid(),
+        title: "Take out the trash",
+        completed: false
+      },
+      {
+        id: uuid(),
+        title: "Go out and party",
+        completed: false
+      },
+      {
+        id: uuid(),
+        title: "Have fun!",
+        completed: false
+      }
+    ]
+  }
+
+  addToDo = (title) => {
+
+    const newTodo = {
+        id: uuid(),
+        title: title,
+        completed: false
+    }
+    
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    })
+
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Wynn Digital ToDo List</h1>
+        <AddToDo todos={this.state.todos} addToDo={this.addToDo}/>
+        <Todos todos={this.state.todos}/>
+      </div>
+    );
+  }
 }
 
 export default App;
+
+
